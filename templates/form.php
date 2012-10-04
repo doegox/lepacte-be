@@ -23,11 +23,11 @@
 if (isset($_POST['form']))
 {
   echo '<div style="font-style: monospace; color: green">
-    <p><strong>Debug:</strong></p>';
+    <p><strong>Debug:</strong></p><pre>';
 
   var_dump($_POST);
 
-  echo '</div>';
+  echo '</pre></div>';
 }
 
 ?>
