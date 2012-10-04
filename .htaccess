@@ -200,3 +200,10 @@ FileETag None
     Header unset X-UA-Compatible
   </FilesMatch>
 </IfModule>
+
+
+# -------------------------------------------------------------------
+# Capture Errors
+# -------------------------------------------------------------------
+
+ErrorDocument 403 http://jesigne.lepacte.be/403
