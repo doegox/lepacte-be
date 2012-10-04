@@ -19,19 +19,43 @@
 
 <?php
 
-// if this very form was submited (and not the form on the main page)
-if (isset($_POST['form']))
+// if the current page is served over HTTPS and eID info are available
+if ($_SERVER['HTTPS']
+ && isset($_SERVER['SSL_CLIENT_S_DN_G'])
+ && isset($_SERVER['SSL_CLIENT_S_DN_S'])
+ && isset($_SERVER['SSL_CLIENT_S_DN']))
 {
-  echo '<div style="font-style: monospace; color: green">
-    <p><strong>Debug:</strong></p><pre>';
+  $firstname = $_SERVER['SSL_CLIENT_S_DN_G'];
+  $name      = $_SERVER['SSL_CLIENT_S_DN_S'];
+  $sex       = substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1) % 2; // 1 man; 0 woman
 
-  var_dump($_POST);
+  // if this very form was submited
+  if (isset($_POST['form'])
+   && !empty($_POST['name'])
+   && !empty($_POST['street'])
+   && !empty($_POST['number'])
+   && !empty($_POST['postcode'])
+   && !empty($_POST['phone'])
+   && !empty($_POST['gsm'])
+   && !empty($_POST['mail'])
+   && !empty($_POST['website'])
+   && !empty($_POST['town'])
+   && !empty($_POST['party'])
+   && !empty($_POST['list'])
+   && !empty($_POST['position'])
+   && !empty($_POST['pact'])
+   && !empty($_POST['form']))
+  {
+    echo '<div style="font-style: monospace; color: green">
+      <p><strong>Debug:</strong></p><pre>';
 
-  echo '</pre></div>';
-}
+    var_dump($_POST);
+
+    echo '</pre></div>';
+  }
+  else {
 
 ?>
-
   <form method="post" action="form" enctype="multipart/form-data" id="step-3">
   <h2>Complétion du formulaire</h2>
 
@@ -39,20 +63,20 @@ if (isset($_POST['form']))
 
   <p class="row">
     <label for="firstname" class="required">Prénom</label>
-    <input type="text" name="firstname" id="firstname" required="required" />
+    <input type="text" name="firstname" value="<?= $firstname; ?>" id="firstname" required="required" />
   </p>
 
   <p class="row">
     <label for="name" class="required">Nom</label>
-    <input type="text" name="name" id="name" required="required" />
+    <input type="text" name="name" value="<?= $name; ?>" id="name" required="required" />
   </p>
 
   <p class="row">
     <label for="sex" class="required">Civilité</label>
     <select id="sex" name="sex" required="required">
       <option value=""></option>
-      <option value="woman">Madame</option>
-      <option value="man">Monsieur</option>
+      <option value="woman"<?= $sex ? '' : ' selected="selected"'; ?>>Madame</option>
+      <option value="man"<?= $sex ? ' selected="selected"' : ''; ?>>Monsieur</option>
     </select>
   </p>
 
@@ -132,6 +156,14 @@ if (isset($_POST['form']))
     <input type="submit" class="green" value="Envoyer" />
   </p>
   </form>
+<?php
+
+  }
+}
+
+?>
+
+
 </div>
 
 <script src="js/jquery-1-8-2.min.js"></script>
