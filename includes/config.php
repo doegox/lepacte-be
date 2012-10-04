@@ -17,7 +17,7 @@ $dbName   = '';
 
 // Application
 
-$path     = 'http://127.0.0.1/lepacte-be/'; // absolute url with a ending slash, ie. http://example.com/
+$path     = 'http://jesigne.lepacte.be/'; // absolute url with a ending slash, ie. http://example.com/
 $language = 'fr';
 
 ?>
