@@ -17,7 +17,7 @@
 
   <p class="center" id="abstract"><?= $lang['abstract']; ?></p>
 
-  <form method="post" action="form">
+  <form method="post" action="https://<?= $_SERVER['HTTP_HOST']; ?>/form">
   <div class="step" id="step-1">
     <h2>Sélection des pactes</h2>
 
@@ -104,7 +104,7 @@
           <li>Insérer votre carte d'identité électronique dans le lecteur&nbsp;;</li>
           <li>Cliquer sur le bouton ci-dessous.</li>
         </ul>
-        <p class="button"><input type="submit" value="Accéder au formulaire" class="green" /></p>
+        <p class="button"><input type="submit" value="Accéder au formulaire avec votre eID" class="green" /></p>
       </div>
       <p id="auth-or"><span>ou</span></p>
       <div id="auth-mail">
