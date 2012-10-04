@@ -1,13 +1,13 @@
 <!doctype html>
 <html class="nojs">
-<head lang="en">
+<head lang="<?= $language; ?>">
   <meta charset="utf-8" />
 
   <link rel="stylesheet" media="screen" href="<?= $path; ?>ui/global.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title><?= $lang['meta-title']; ?></title>
+  <title><?= $lang['title']; ?></title>
   <meta name="description" content="<?= $lang['meta-desc']; ?>" />
 </head>
 

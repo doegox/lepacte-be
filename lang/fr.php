@@ -2,7 +2,7 @@
 
 $lang = array(
   // Application
-  'meta-title'              => 'LePacte.be des libertés numériques',
+  'meta-title'              => 'LePacte.be',
   'meta-desc'               => '',
   
   'title'                   => 'LePacte.be des libertés numériques',
