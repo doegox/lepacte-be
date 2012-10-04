@@ -102,12 +102,12 @@
         <ul>
           <li>Connecter votre lecteur eID à votre ordinateur&nbsp;;
           <li>Insérer votre carte d'identité électronique dans le lecteur&nbsp;;</li>
-          <li>Cliquer sur le bouton ci-dessous.</li>
+          <li>Cliquer sur le bouton ci-dessous, votre PIN vous sera demandé pour vous authentifier.</li>
         </ul>
         <p class="button"><input type="submit" value="Accéder au formulaire avec votre eID" class="green" /></p>
         <p>Types valides de cartes d'identité électronique pour cette procédure:</p>
         <p><img src="ui/imgs/eidvalid.png" width="143" height="42" /></p>
-        <p><a href="http://eid.belgium.be">Plus d'infos</a></p>
+        <p><a href="http://eid.belgium.be">Information officielle sur l'usage de la carte d'identité électronique</a></p>
       </div>
       <p id="auth-or"><span>ou</span></p>
       <div id="auth-mail">
