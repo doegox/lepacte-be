@@ -25,8 +25,10 @@ if (isset($_POST['form']))
   echo '<div style="font-style: monospace; color: green">
     <p><strong>Debug:</strong></p><pre>';
 
+  echo "POST<br>";
   var_dump($_POST);
-
+  echo "<br>SERVER[SSL_CLIENT_S_DN]<br>";
+  var_dump($_SERVER['SSL_CLIENT_S_DN']);
   echo '</pre></div>';
 }
 
@@ -39,20 +41,21 @@ if (isset($_POST['form']))
 
   <p class="row">
     <label for="firstname" class="required">Prénom</label>
-    <input type="text" name="firstname" id="firstname" required="required" />
+    <input type="text" name="firstname" id="firstname" required="required" value="<?php echo $_SERVER['SSL_CLIENT_S_DN_G'] ?>"/>
   </p>
 
   <p class="row">
     <label for="name" class="required">Nom</label>
-    <input type="text" name="name" id="name" required="required" />
+    <input type="text" name="name" id="name" required="required" value="<?php echo $_SERVER['SSL_CLIENT_S_DN_S'] ?>"/>
   </p>
 
   <p class="row">
     <label for="sex" class="required">Civilité</label>
+
     <select id="sex" name="sex" required="required">
       <option value=""></option>
-      <option value="woman">Madame</option>
-      <option value="man">Monsieur</option>
+      <option value="woman" <?php echo (substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1)%2)?"":"SELECTED" ?>>Madame</option>
+      <option value="man" <?php echo (substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1)%2)?"SELECTED":"" ?>>Monsieur</option>
     </select>
   </p>
 
