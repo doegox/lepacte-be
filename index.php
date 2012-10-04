@@ -18,11 +18,11 @@ if (isset($_GET['q']))
       include($pages[$q]);
     }
     else {
-      include('templates/error.php');
+      include('templates/error404.php');
     }
   }
   else {
-    include('templates/error.php');
+    include('templates/error404.php');
   }
 }
 else {
