@@ -18,8 +18,19 @@
   <p class="center" id="abstract"><?= $lang['abstract']; ?></p>
 
 <?php
+// if not SSL, explain how to use eID
+if (! isset($_SERVER['SSL_CLIENT_S_DN']))
+{
+  echo 'L\'étape suivante requiert l\'usage de votre eID<br>
+    Appuyer <a href="https://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'].'">ici</a> lorsque vous êtes prêt(e)<br>
+    Si vous suivez ce lien sans utiliser correctement votre eID, vous aurez une erreur d\'accès et devrez réessayer.<br>
+    Sur cetaines configurations il est possible que vous deviez redémarrer votre browser après avoir introduit votre carte dans le lecteur.
+    </body></html>
+  ';
+  exit;
+}
 
-// if this very form was submited (and not the form on the main page)
+// if this very form was submitted (and not the form on the main page)
 if (isset($_POST['form']))
 {
   echo '<div style="font-style: monospace; color: green">
