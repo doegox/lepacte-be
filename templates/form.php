@@ -9,6 +9,14 @@
 
   <title><?= $lang['meta-title']; ?></title>
   <meta name="description" content="<?= $lang['meta-desc']; ?>" />
+  <script type="text/javascript">
+    function party_freetext_visibility(objfilteroptions){
+      if (objfilteroptions.value=="other")
+        document.getElementById("party_freetext").style.display='block';
+      else
+        document.getElementById("party_freetext").style.display='none';
+      }
+  </script>
 </head>
 
 <body>
@@ -401,7 +409,7 @@ if (isset($_POST['form']))
 
     <p class="row">
       <label for="party">Parti</label>
-      <select id="party_id" name="party" required="required">
+      <select id="party_id" name="party_id" required="required" onChange="party_freetext_visibility(this)">
         <option value=""></option>
         <option value=19>CD&V - Christen-Democratisch Vlaams</option>
         <option value=13>cdH - Centre démocrate humaniste</option>
@@ -422,7 +430,11 @@ if (isset($_POST['form']))
         <option value=14>SLP - Sociaal-liberale</option>
         <option value=10>sp.a - Socialistische partij - anders</option>
         <option value=17>Vlaams belang</option>
+        <option value="other">Autre</option>
       </select>
+      <div id="party_freetext" style="display:none">
+        <label for="position">Précisez:</label> <input type="text" name="party" id="party" class="tiny" />
+      </div>
     </p>
 
     <p class="row">
