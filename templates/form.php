@@ -51,6 +51,8 @@ if ($_SERVER['HTTPS']
       <p><strong>Debug:</strong></p><pre>';
 
     var_dump($_POST);
+    // Must be directly fetched from $_SERVER to avoid forgery, will serve as digital signature:
+    var_dump($_SERVER['SSL_CLIENT_S_DN']);
 
     echo '</pre></div>';
   }
