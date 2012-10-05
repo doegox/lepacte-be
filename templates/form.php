@@ -32,20 +32,15 @@ if ($_SERVER['HTTPS']
 
   // if this very form was submitted
   if (isset($_POST['form'])
+   && !empty($_POST['firstname'])
    && !empty($_POST['name'])
-   && !empty($_POST['street'])
-   && !empty($_POST['number'])
-   && !empty($_POST['postcode'])
-   && !empty($_POST['phone'])
    && !empty($_POST['gsm'])
    && !empty($_POST['mail'])
-   && !empty($_POST['website'])
-   && !empty($_POST['town'])
-   && !empty($_POST['party'])
+   && !empty($_POST['circonscription_id'])
+   && !empty($_POST['party-id'])
    && !empty($_POST['list'])
    && !empty($_POST['position'])
-   && !empty($_POST['pact'])
-   && !empty($_POST['form']))
+   && !empty($_POST['pact']))
   {
     echo '<div style="font-style: monospace; color: green">
       <p><strong>Debug:</strong></p><pre>';
