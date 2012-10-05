@@ -132,6 +132,10 @@ fieldset .signature {
   display: inline-block;
   width: 252px;
 }
+#step-3 .row select {
+  display: inline-block;
+  width: 262px;
+}
 #step-3 label {
   width: 150px;
   padding-right: 14px;

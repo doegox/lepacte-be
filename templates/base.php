@@ -1,13 +1,13 @@
 <!doctype html>
 <html class="nojs">
-<head lang="en">
+<head lang="<?= $language; ?>">
   <meta charset="utf-8" />
 
   <link rel="stylesheet" media="screen" href="<?= $path; ?>ui/global.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title><?= $lang['meta-title']; ?></title>
+  <title><?= $lang['title']; ?></title>
   <meta name="description" content="<?= $lang['meta-desc']; ?>" />
 </head>
 
@@ -17,7 +17,7 @@
 
   <p class="center" id="abstract"><?= $lang['abstract']; ?></p>
 
-  <form method="post" action="https://<?= $_SERVER['HTTP_HOST']; ?>/form">
+  <form method="post" action="form">
   <div class="step" id="step-1">
     <h2>Sélection des pactes</h2>
 
@@ -102,12 +102,9 @@
         <ul>
           <li>Connecter votre lecteur eID à votre ordinateur&nbsp;;
           <li>Insérer votre carte d'identité électronique dans le lecteur&nbsp;;</li>
-          <li>Cliquer sur le bouton ci-dessous, votre PIN vous sera demandé pour vous authentifier.</li>
+          <li>Cliquer sur le bouton ci-dessous.</li>
         </ul>
-        <p class="button"><input type="submit" value="Accéder au formulaire avec votre eID" class="green" /></p>
-        <p>Types valides de cartes d'identité électronique pour cette procédure:</p>
-        <p><img src="ui/imgs/eidvalid.png" width="143" height="42" /></p>
-        <p><a href="http://eid.belgium.be">Information officielle sur l'usage de la carte d'identité électronique</a></p>
+        <p class="button"><input type="submit" value="Accéder au formulaire" class="green" /></p>
       </div>
       <p id="auth-or"><span>ou</span></p>
       <div id="auth-mail">
