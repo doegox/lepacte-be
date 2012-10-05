@@ -9,7 +9,7 @@ $httpStatus = array(
   ),
   '404' => array(
     'header'   => 'HTTP/1.0 404 Not Found',
-    'title'    => '404 not found',
+    'title'    => '404 Not found',
     'abstract' => 'Not found',
     'details'  => '<p>The requested URL was not found on this server.</p><p>Retourner sur <a href="' . $path . '">LePacte.be</a>.</p>'
   )
