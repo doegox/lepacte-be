@@ -29,7 +29,7 @@ if ($_SERVER['HTTPS']
   $name      = $_SERVER['SSL_CLIENT_S_DN_S'];
   $sex       = substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1) % 2; // 1 man; 0 woman
 
-  // if this very form was submited
+  // if this very form was submitted
   if (isset($_POST['form'])
    && !empty($_POST['name'])
    && !empty($_POST['street'])
