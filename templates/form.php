@@ -43,8 +43,7 @@ if ($_SERVER['HTTPS']
    && !empty($_POST['party-id'])
    && !empty($_POST['list'])
    && !empty($_POST['position'])
-   && !empty($_POST['pact'])
-   && !empty($_POST['form']))
+   && !empty($_POST['pact']))
   {
     echo '<div style="font-style: monospace; color: green">
       <p><strong>Debug:</strong></p><pre>';
