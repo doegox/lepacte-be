@@ -42,7 +42,7 @@ if ($_SERVER['HTTPS']
    && !empty($_POST['party-id'])
    && !empty($_POST['list'])
    && !empty($_POST['position'])
-   && !empty($_POST['pact']))
+   && !empty($_POST['pact']) && is_array($_POST['pact']))
   {
     // required fields
     $firstname = htmlspecialchars($_POST['firstname']);
@@ -72,9 +72,27 @@ if ($_SERVER['HTTPS']
     // # mail
     $formErrors['mail'] = filter_var($mail, FILTER_VALIDATE_EMAIL) ? $formErrors['mail'] : 'error';
 
+    // # town_id
+    $formErrors['town-id'] = intval($town_id) ? $formErrors['town-id'] : 'error';
+
+    // # party_id
+    $formErrors['party_id'] = intval($party_id) ? $formErrors['party_id'] : 'error';
+
+    // # position
+    $formErrors['position'] = intval($position) ? $formErrors['position'] : 'error';
+
     // # pact
     foreach(array_values($pact) as $submitedPact) {
       $formErrors['pact'] = in_array($submitedPact, array('software', 'data', 'internet')) ? $formErrors['pact'] : 'error';
+    }
+
+    // # website
+    if (preg_match('!^(https?://|www\d*\.)(\[?((?:\d+\.){3}\d+|(?:[a-f\d]*:?){3,})\]?|[a-z\d\.-]+(?:\.[a-z]{2,4}))(?::\d+)?(/[\w#%@\$&/\?\!\.:;\'\*\+-=~\(\)\[\]{}]*)*$!i', $website, $matches))
+    {
+      $formErrors['website'] = (empty($matches[3]) || (!empty($matches[3]) && @inet_pton($matches[3]))) ? $formErrors['website'] : 'error';
+    }
+    else {
+      $formErrors['website'] = 'error';
     }
 
     // # party
