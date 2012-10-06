@@ -172,7 +172,7 @@ if ($_SERVER['HTTPS']
     <legend class="required">Communales 2012</legend>
     <p class="row">
       <label for="town-id">Commune</label>
-      <select id="town-id" name="town_id" required="required">
+      <select name="town_id" id="town-id" required="required">
         <option value=""></option>
         <option value="100">Aiseau-Presles</option>
         <option value="101">Amay</option>
