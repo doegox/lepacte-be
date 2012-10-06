@@ -128,6 +128,12 @@ $('.step + .step').hide();
 
 $('form').prepend('<ul id="progress"><li id="progress-step-1" class="current">Étape 1 : sélection des pactes</li><li id="progress-step-2">Étape 2 : authentification et complétion du formulaire</li></ul>');
 
+$('.signature label').each(function() {
+  $(this).bind('click', function() {
+    $(this).prev('input').toggleClass('checked');
+  });
+});
+
 $('.step').each(function() {
   var currentStep = $(this),
       currentId   = $(this).attr('id'),

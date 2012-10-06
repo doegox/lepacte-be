@@ -490,6 +490,12 @@ $('#party-id').bind('change', function() {
     $('#party').show().focus();
   }
 });
+
+$('.signature label').each(function() {
+  $(this).bind('click', function() {
+    $(this).prev('input').toggleClass('checked');
+  });
+});
 </script>
 </body>
 </html>
