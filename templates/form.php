@@ -38,8 +38,8 @@ if ($_SERVER['HTTPS']
    && !empty($_POST['name'])
    && !empty($_POST['gsm'])
    && !empty($_POST['mail'])
-   && !empty($_POST['town-id'])
-   && !empty($_POST['party-id'])
+   && !empty($_POST['town_id'])
+   && !empty($_POST['party_id'])
    && !empty($_POST['list'])
    && !empty($_POST['position'])
    && !empty($_POST['pact']) && is_array($_POST['pact']))
@@ -50,8 +50,8 @@ if ($_SERVER['HTTPS']
     $sex       = htmlspecialchars($_POST['sex']);
     $gsm       = htmlspecialchars($_POST['gsm']);
     $mail      = htmlspecialchars($_POST['mail']);
-    $town_id   = htmlspecialchars($_POST['town-id']);
-    $party_id  = htmlspecialchars($_POST['party-id']);
+    $town_id   = htmlspecialchars($_POST['town_id']);
+    $party_id  = htmlspecialchars($_POST['party_id']);
     $list      = htmlspecialchars($_POST['list']);
     $position  = htmlspecialchars($_POST['position']);
     $pact      = $_POST['pact'];
@@ -73,7 +73,7 @@ if ($_SERVER['HTTPS']
     $formErrors['mail'] = filter_var($mail, FILTER_VALIDATE_EMAIL) ? $formErrors['mail'] : 'error';
 
     // # town_id
-    $formErrors['town-id'] = intval($town_id) ? $formErrors['town-id'] : 'error';
+    $formErrors['town_id'] = intval($town_id) ? $formErrors['town_id'] : 'error';
 
     // # party_id
     $formErrors['party_id'] = intval($party_id) ? $formErrors['party_id'] : 'error';
@@ -172,7 +172,7 @@ if ($_SERVER['HTTPS']
     <legend class="required">Communales 2012</legend>
     <p class="row">
       <label for="town-id">Commune</label>
-      <select id="town-id" name="town-id" required="required">
+      <select id="town-id" name="town_id" required="required">
         <option value=""></option>
         <option value="100">Aiseau-Presles</option>
         <option value="101">Amay</option>
@@ -464,7 +464,7 @@ if ($_SERVER['HTTPS']
 
     <p class="row">
       <label for="party-id">Parti</label>
-      <select name="party-id" id="party-id" required="required">
+      <select name="party_id" id="party-id" required="required">
         <option value=""></option>
         <option value="19">CD&V - Christen-Democratisch Vlaams</option>
         <option value="13">cdH - Centre démocrate humaniste</option>
