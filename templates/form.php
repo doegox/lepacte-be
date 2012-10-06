@@ -30,7 +30,7 @@ if ($_SERVER['HTTPS']
 
   $name       = $_SERVER['SSL_CLIENT_S_DN_S'];
 
-  $sex        = substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1) % 2; // 1 man; 0 woman
+  $sex        = substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1) % 2 ? 'man' : 'woman';
 
   // if this very form was submitted
   if (isset($_POST['form'])
@@ -59,6 +59,7 @@ if ($_SERVER['HTTPS']
     // optional fields
     $street    = !empty($_POST['street']) ? htmlspecialchars($_POST['street']) : '';
     $number    = !empty($_POST['number']) ? htmlspecialchars($_POST['number']) : '';
+    $city      = !empty($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     $postcode  = !empty($_POST['postcode']) ? htmlspecialchars($_POST['postcode']) : '';
     $phone     = !empty($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '';
     $website   = !empty($_POST['website']) ? htmlspecialchars($_POST['website']) : '';
@@ -110,8 +111,10 @@ if ($_SERVER['HTTPS']
     }
   }
   else {
-
+    // display error
+  }
 ?>
+
   <form method="post" action="form" enctype="multipart/form-data" id="step-3">
   <h2>Complétion du formulaire</h2>
 
@@ -131,8 +134,8 @@ if ($_SERVER['HTTPS']
     <label for="sex" class="required">Civilité</label>
     <select name="sex" id="sex" required="required">
       <option value=""></option>
-      <option value="woman"<?= $sex ? '' : ' selected="selected"'; ?>>Madame</option>
-      <option value="man"<?= $sex ? ' selected="selected"' : ''; ?>>Monsieur</option>
+      <option value="woman"<?= $sex == 'woman' ? ' selected="selected"' : ''; ?>>Madame</option>
+      <option value="man"<?= $sex == 'man' ? ' selected="selected"' : ''; ?>>Monsieur</option>
     </select>
   </p>
 
@@ -142,33 +145,33 @@ if ($_SERVER['HTTPS']
   </p>
 
   <p class="row">
-    <label for="street">Rue</label> <input type="text" name="street" id="street" />
-    <label for="number">N°</label> <input type="text" name="number" id="number" class="tiny" />
+    <label for="street">Rue</label> <input type="text" name="street" value="<?= $street; ?>" id="street" />
+    <label for="number">N°</label> <input type="text" name="number" value="<?= $number; ?>" id="number" class="tiny" />
   </p>
 
   <p class="row">
-    <label for="city">Ville</label> <input type="text" id="city" />
-    <label for="postcode">Code postal</label> <input type="text" name="postcode" id="postcode" class="tiny" />
+    <label for="city">Ville</label> <input type="text" name="city" value="<?= $city; ?>" id="city" />
+    <label for="postcode">Code postal</label> <input type="text" name="postcode" value="<?= $postcode; ?>" id="postcode" class="tiny" />
   </p>
 
   <p class="row">
     <label for="phone">Télphone (fixe)</label>
-    <input type="text" name="phone" id="phone" />
+    <input type="text" name="phone" value="<?= $phone; ?>" id="phone" />
   </p>
 
   <p class="row">
     <label for="gsm" class="required">GSM</label>
-    <input type="text" name="gsm" id="gsm" required="required" />
+    <input type="text" name="gsm" value="<?= $gsm; ?>" id="gsm" required="required" />
   </p>
 
   <p class="row">
     <label for="mail" class="required">E-mail</label>
-    <input type="text" name="mail" id="mail" required="required" />
+    <input type="text" name="mail" value="<?= $mail; ?>" id="mail" required="required" />
   </p>
 
   <p class="row">
     <label for="website">Site web</label>
-    <input type="text" name="website" id="website" />
+    <input type="text" name="website" value="<?= $website; ?>" id="website" />
   </p>
 
   <fieldset>
@@ -490,12 +493,12 @@ if ($_SERVER['HTTPS']
         <option value="17">Vlaams belang</option>
         <option value="other" id="other-party">(autre)</option>
       </select>
-      <label for="party">Autre parti</label><input type="text" name="party" id="party" class="tiny" />
+      <label for="party">Autre parti</label><input type="text" name="party" value="<?= $party; ?>" id="party" class="tiny" />
     </p>
 
     <p class="row">
-      <label for="list">Liste</label> <input type="text" name="list" id="list" required="required" />
-      <label for="position">Place sur la liste</label> <input type="text" name="position" id="position" required="required" class="tiny" />
+      <label for="list">Liste</label> <input type="text" name="list" value="<?= $list; ?>" id="list" required="required" />
+      <label for="position">Place sur la liste</label> <input type="text" name="position" value="<?= $position; ?>" id="position" required="required" class="tiny" />
     </p>
   </fieldset>
 
@@ -522,14 +525,12 @@ if ($_SERVER['HTTPS']
     <input type="submit" class="green" value="Envoyer" />
   </p>
   </form>
+
 <?php
 
-  }
 }
 
 ?>
-
-
 </div>
 
 <script src="js/jquery-1-8-2.min.js"></script>
