@@ -31,16 +31,12 @@ if ($_SERVER['HTTPS']
 
   // if this very form was submitted
   if (isset($_POST['form'])
+   && !empty($_POST['firstname'])
    && !empty($_POST['name'])
-   && !empty($_POST['street'])
-   && !empty($_POST['number'])
-   && !empty($_POST['postcode'])
-   && !empty($_POST['phone'])
    && !empty($_POST['gsm'])
    && !empty($_POST['mail'])
-   && !empty($_POST['website'])
-   && !empty($_POST['town'])
-   && !empty($_POST['party'])
+   && !empty($_POST['circonscription-id'])
+   && !empty($_POST['party-id'])
    && !empty($_POST['list'])
    && !empty($_POST['position'])
    && !empty($_POST['pact'])
@@ -118,8 +114,8 @@ if ($_SERVER['HTTPS']
   <fieldset>
     <legend class="required">Communales 2012</legend>
     <p class="row">
-      <label for="circonscription_id">Commune</label>
-      <select id="circonscription_id" name="circonscription_id" required="required">
+      <label for="circonscription-id">Commune</label>
+      <select id="circonscription-id" name="circonscription-id" required="required">
         <option value=""></option>
         <option value="100">Aiseau-Presles</option>
         <option value="101">Amay</option>
