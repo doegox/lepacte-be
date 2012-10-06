@@ -25,10 +25,12 @@ if ($_SERVER['HTTPS']
  && isset($_SERVER['SSL_CLIENT_S_DN_S'])
  && isset($_SERVER['SSL_CLIENT_S_DN']))
 {
-  $firstnames = explode(" ", $_SERVER['SSL_CLIENT_S_DN_G']);
-  $firstname = $firstnames[0];
-  $name      = $_SERVER['SSL_CLIENT_S_DN_S'];
-  $sex       = substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1) % 2; // 1 man; 0 woman
+  $firstnames = explode(' ', $_SERVER['SSL_CLIENT_S_DN_G']);
+  $firstname  = $firstnames[0];
+
+  $name       = $_SERVER['SSL_CLIENT_S_DN_S'];
+
+  $sex        = substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1) % 2; // 1 man; 0 woman
 
   // if this very form was submitted
   if (isset($_POST['form'])
