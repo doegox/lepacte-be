@@ -38,18 +38,55 @@ if ($_SERVER['HTTPS']
    && !empty($_POST['name'])
    && !empty($_POST['gsm'])
    && !empty($_POST['mail'])
-   && !empty($_POST['circonscription-id'])
+   && !empty($_POST['town-id'])
    && !empty($_POST['party-id'])
    && !empty($_POST['list'])
    && !empty($_POST['position'])
    && !empty($_POST['pact']))
   {
-    echo '<div style="font-style: monospace; color: green">
-      <p><strong>Debug:</strong></p><pre>';
+    // required fields
+    $firstname = htmlspecialchars($_POST['firstname']);
+    $name      = htmlspecialchars($_POST['name']);
+    $sex       = htmlspecialchars($_POST['sex']);
+    $gsm       = htmlspecialchars($_POST['gsm']);
+    $mail      = htmlspecialchars($_POST['mail']);
+    $town_id   = htmlspecialchars($_POST['town-id']);
+    $party_id  = htmlspecialchars($_POST['party-id']);
+    $list      = htmlspecialchars($_POST['list']);
+    $position  = htmlspecialchars($_POST['position']);
+    $pact      = $_POST['pact'];
 
-    var_dump($_POST);
+    // optional fields
+    $street    = !empty($_POST['street']) ? htmlspecialchars($_POST['street']) : '';
+    $number    = !empty($_POST['number']) ? htmlspecialchars($_POST['number']) : '';
+    $postcode  = !empty($_POST['postcode']) ? htmlspecialchars($_POST['postcode']) : '';
+    $phone     = !empty($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '';
+    $website   = !empty($_POST['website']) ? htmlspecialchars($_POST['website']) : '';
+    $party     = !empty($_POST['party']) ? htmlspecialchars($_POST['party']) : '';
 
-    echo '</pre></div>';
+    // validation
+
+    // # sex
+    $formErrors['sex'] = in_array($sex, array('man', 'woman')) ? $formErrors['sex'] : 'error';
+
+    // # mail
+    $formErrors['mail'] = filter_var($mail, FILTER_VALIDATE_EMAIL) ? $formErrors['mail'] : 'error';
+
+    // # pact
+    foreach(array_values($pact) as $submitedPact) {
+      $formErrors['pact'] = in_array($submitedPact, array('software', 'data', 'internet')) ? $formErrors['pact'] : 'error';
+    }
+
+    // # party
+    $formErrors['party'] = ($party_id == 'other' && empty($party)) ? 'error' : $formErrors['party'];
+
+    // if submitted data are valid
+    if (!in_array('error', array_values($formErrors))) {
+      // SQL query
+    }
+    else {
+      // display error
+    }
   }
   else {
 
@@ -116,8 +153,8 @@ if ($_SERVER['HTTPS']
   <fieldset>
     <legend class="required">Communales 2012</legend>
     <p class="row">
-      <label for="circonscription-id">Commune</label>
-      <select id="circonscription-id" name="circonscription-id" required="required">
+      <label for="town-id">Commune</label>
+      <select id="town-id" name="town-id" required="required">
         <option value=""></option>
         <option value="100">Aiseau-Presles</option>
         <option value="101">Amay</option>
