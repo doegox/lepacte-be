@@ -91,8 +91,11 @@ if ($_SERVER['HTTPS']
     {
       $formErrors['website'] = (empty($matches[3]) || (!empty($matches[3]) && @inet_pton($matches[3]))) ? $formErrors['website'] : 'error';
     }
-    else {
+    elseif (!empty($website)) {
       $formErrors['website'] = 'error';
+    }
+    else {
+      $formErrors['website'] = $formErrors['website'];
     }
 
     // # party
