@@ -75,7 +75,9 @@ fieldset .signature {
   padding: .5em 0 .5em 40px;
   background: url('imgs/checkbox.png') left -50px no-repeat;
 }
-.checkbox:checked + label,
+.checkbox:checked + label {
+  background-position: left 5px;
+}
 .checkbox.checked + label {
   background-position: left 5px;
 }
