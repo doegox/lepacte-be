@@ -35,38 +35,38 @@ if ($_SERVER['HTTPS']
   // if this very form was submitted
   if (isset($_POST['form']))
   {
-    if (!empty($_POST['firstname'])
-     && !empty($_POST['name'])
-     && !empty($_POST['sex'])
-     && !empty($_POST['gsm'])
-     && !empty($_POST['mail'])
-     && !empty($_POST['town_id'])
-     && !empty($_POST['party_id'])
-     && !empty($_POST['list'])
-     && !empty($_POST['position'])
-     && !empty($_POST['pact']) && is_array($_POST['pact']))
+    // required fields
+    $firstname = htmlspecialchars($_POST['firstname']);
+    $name      = htmlspecialchars($_POST['name']);
+    $sex       = htmlspecialchars($_POST['sex']);
+    $gsm       = htmlspecialchars($_POST['gsm']);
+    $mail      = htmlspecialchars($_POST['mail']);
+    $town_id   = htmlspecialchars($_POST['town_id']);
+    $party_id  = htmlspecialchars($_POST['party_id']);
+    $list      = htmlspecialchars($_POST['list']);
+    $position  = htmlspecialchars($_POST['position']);
+    $pact      = $_POST['pact'];
+
+    // optional fields
+    $street    = !empty($_POST['street']) ? htmlspecialchars($_POST['street']) : '';
+    $number    = !empty($_POST['number']) ? htmlspecialchars($_POST['number']) : '';
+    $city      = !empty($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
+    $postcode  = !empty($_POST['postcode']) ? htmlspecialchars($_POST['postcode']) : '';
+    $phone     = !empty($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '';
+    $website   = !empty($_POST['website']) ? htmlspecialchars($_POST['website']) : '';
+    $party     = !empty($_POST['party']) ? htmlspecialchars($_POST['party']) : '';
+
+    if (!empty($firstname)
+     && !empty($name)
+     && !empty($sex)
+     && !empty($gsm)
+     && !empty($mail)
+     && !empty($town_id)
+     && !empty($party_id)
+     && !empty($list)
+     && !empty($position)
+     && !empty($pact) && is_array($pact))
     {
-      // required fields
-      $firstname = htmlspecialchars($_POST['firstname']);
-      $name      = htmlspecialchars($_POST['name']);
-      $sex       = htmlspecialchars($_POST['sex']);
-      $gsm       = htmlspecialchars($_POST['gsm']);
-      $mail      = htmlspecialchars($_POST['mail']);
-      $town_id   = htmlspecialchars($_POST['town_id']);
-      $party_id  = htmlspecialchars($_POST['party_id']);
-      $list      = htmlspecialchars($_POST['list']);
-      $position  = htmlspecialchars($_POST['position']);
-      $pact      = $_POST['pact'];
-
-      // optional fields
-      $street    = !empty($_POST['street']) ? htmlspecialchars($_POST['street']) : '';
-      $number    = !empty($_POST['number']) ? htmlspecialchars($_POST['number']) : '';
-      $city      = !empty($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
-      $postcode  = !empty($_POST['postcode']) ? htmlspecialchars($_POST['postcode']) : '';
-      $phone     = !empty($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '';
-      $website   = !empty($_POST['website']) ? htmlspecialchars($_POST['website']) : '';
-      $party     = !empty($_POST['party']) ? htmlspecialchars($_POST['party']) : '';
-
       // validation
 
       // # sex
@@ -547,19 +547,21 @@ if ($_SERVER['HTTPS']
 <script>
 $('html').removeClass('nojs').addClass('js');
 
+function showParty(param) {
+  $('#party').prev('label').show();
+  param == 'focus' ? $('#party').show().focus().attr('required', 'required') : $('#party').show().attr('required', 'required');
+};
+
+function hideParty() {
+  $('#party').prev('label').hide();
+  $('#party').show().hide().removeAttr('required');
+};
+
 $('#party').prev('label').hide();
 $('#party').hide();
 
 $('#party-id').bind('change', function() {
-  if ($(this).children(':selected').attr('value') == '1')
-  {
-    $('#party').prev('label').show();
-    $('#party').show().focus().attr('required', 'required');
-  }
-  else {
-    $('#party').prev('label').hide();
-    $('#party').show().hide().removeAttr('required');
-  }
+  $(this).children(':selected').attr('value') == '1' ? showParty('focus') : hideParty();
 });
 
 $('.signature label').each(function() {
@@ -567,6 +569,14 @@ $('.signature label').each(function() {
     $(this).prev('input').toggleClass('checked');
   });
 });
+
+<?php
+
+echo !empty($town_id) && intval($town_id) ? '$("#town-id option[value=' . $town_id . ']").attr("selected", "selected");' : '';
+echo !empty($party_id) && intval($party_id) ? '$("#party-id option[value=' . $party_id . ']").attr("selected", "selected");' : '';
+echo !empty($party) && $party_id == '1' ? 'showParty();' : '';
+
+?>
 </script>
 </body>
 </html>
