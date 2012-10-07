@@ -33,86 +33,88 @@ if ($_SERVER['HTTPS']
   $sex        = substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1) % 2 ? 'man' : 'woman';
 
   // if this very form was submitted
-  if (isset($_POST['form'])
-   && !empty($_POST['firstname'])
-   && !empty($_POST['name'])
-   && !empty($_POST['sex'])
-   && !empty($_POST['gsm'])
-   && !empty($_POST['mail'])
-   && !empty($_POST['town_id'])
-   && !empty($_POST['party_id'])
-   && !empty($_POST['list'])
-   && !empty($_POST['position'])
-   && !empty($_POST['pact']) && is_array($_POST['pact']))
+  if (isset($_POST['form']))
   {
-    // required fields
-    $firstname = htmlspecialchars($_POST['firstname']);
-    $name      = htmlspecialchars($_POST['name']);
-    $sex       = htmlspecialchars($_POST['sex']);
-    $gsm       = htmlspecialchars($_POST['gsm']);
-    $mail      = htmlspecialchars($_POST['mail']);
-    $town_id   = htmlspecialchars($_POST['town_id']);
-    $party_id  = htmlspecialchars($_POST['party_id']);
-    $list      = htmlspecialchars($_POST['list']);
-    $position  = htmlspecialchars($_POST['position']);
-    $pact      = $_POST['pact'];
-
-    // optional fields
-    $street    = !empty($_POST['street']) ? htmlspecialchars($_POST['street']) : '';
-    $number    = !empty($_POST['number']) ? htmlspecialchars($_POST['number']) : '';
-    $city      = !empty($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
-    $postcode  = !empty($_POST['postcode']) ? htmlspecialchars($_POST['postcode']) : '';
-    $phone     = !empty($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '';
-    $website   = !empty($_POST['website']) ? htmlspecialchars($_POST['website']) : '';
-    $party     = !empty($_POST['party']) ? htmlspecialchars($_POST['party']) : '';
-
-    // validation
-
-    // # sex
-    $formErrors['sex'] = in_array($sex, array('man', 'woman')) ? $formErrors['sex'] : 'error';
-
-    // # mail
-    $formErrors['mail'] = filter_var($mail, FILTER_VALIDATE_EMAIL) ? $formErrors['mail'] : 'error';
-
-    // # town_id
-    $formErrors['town_id'] = intval($town_id) ? $formErrors['town_id'] : 'error';
-
-    // # party_id
-    $formErrors['party_id'] = intval($party_id) ? $formErrors['party_id'] : 'error';
-
-    // # position
-    $formErrors['position'] = intval($position) ? $formErrors['position'] : 'error';
-
-    // # pact
-    foreach(array_values($pact) as $submitedPact) {
-      $formErrors['pact'] = in_array($submitedPact, array('software', 'data', 'internet')) ? $formErrors['pact'] : 'error';
-    }
-
-    // # website
-    if (preg_match('!^(https?://|www\d*\.)(\[?((?:\d+\.){3}\d+|(?:[a-f\d]*:?){3,})\]?|[a-z\d\.-]+(?:\.[a-z]{2,4}))(?::\d+)?(/[\w#%@\$&/\?\!\.:;\'\*\+-=~\(\)\[\]{}]*)*$!i', $website, $matches))
+    if (!empty($_POST['firstname'])
+     && !empty($_POST['name'])
+     && !empty($_POST['sex'])
+     && !empty($_POST['gsm'])
+     && !empty($_POST['mail'])
+     && !empty($_POST['town_id'])
+     && !empty($_POST['party_id'])
+     && !empty($_POST['list'])
+     && !empty($_POST['position'])
+     && !empty($_POST['pact']) && is_array($_POST['pact']))
     {
-      $formErrors['website'] = (empty($matches[3]) || (!empty($matches[3]) && @inet_pton($matches[3]))) ? $formErrors['website'] : 'error';
-    }
-    elseif (!empty($website)) {
-      $formErrors['website'] = 'error';
+      // required fields
+      $firstname = htmlspecialchars($_POST['firstname']);
+      $name      = htmlspecialchars($_POST['name']);
+      $sex       = htmlspecialchars($_POST['sex']);
+      $gsm       = htmlspecialchars($_POST['gsm']);
+      $mail      = htmlspecialchars($_POST['mail']);
+      $town_id   = htmlspecialchars($_POST['town_id']);
+      $party_id  = htmlspecialchars($_POST['party_id']);
+      $list      = htmlspecialchars($_POST['list']);
+      $position  = htmlspecialchars($_POST['position']);
+      $pact      = $_POST['pact'];
+
+      // optional fields
+      $street    = !empty($_POST['street']) ? htmlspecialchars($_POST['street']) : '';
+      $number    = !empty($_POST['number']) ? htmlspecialchars($_POST['number']) : '';
+      $city      = !empty($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
+      $postcode  = !empty($_POST['postcode']) ? htmlspecialchars($_POST['postcode']) : '';
+      $phone     = !empty($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '';
+      $website   = !empty($_POST['website']) ? htmlspecialchars($_POST['website']) : '';
+      $party     = !empty($_POST['party']) ? htmlspecialchars($_POST['party']) : '';
+
+      // validation
+
+      // # sex
+      $formErrors['sex'] = in_array($sex, array('man', 'woman')) ? $formErrors['sex'] : 'error';
+
+      // # mail
+      $formErrors['mail'] = filter_var($mail, FILTER_VALIDATE_EMAIL) ? $formErrors['mail'] : 'error';
+
+      // # town_id
+      $formErrors['town_id'] = intval($town_id) ? $formErrors['town_id'] : 'error';
+
+      // # party_id
+      $formErrors['party_id'] = intval($party_id) ? $formErrors['party_id'] : 'error';
+
+      // # position
+      $formErrors['position'] = intval($position) ? $formErrors['position'] : 'error';
+
+      // # pact
+      foreach(array_values($pact) as $submitedPact) {
+        $formErrors['pact'] = in_array($submitedPact, array('software', 'data', 'internet')) ? $formErrors['pact'] : 'error';
+      }
+
+      // # website
+      if (preg_match('!^(https?://|www\d*\.)(\[?((?:\d+\.){3}\d+|(?:[a-f\d]*:?){3,})\]?|[a-z\d\.-]+(?:\.[a-z]{2,4}))(?::\d+)?(/[\w#%@\$&/\?\!\.:;\'\*\+-=~\(\)\[\]{}]*)*$!i', $website, $matches))
+      {
+        $formErrors['website'] = (empty($matches[3]) || (!empty($matches[3]) && @inet_pton($matches[3]))) ? $formErrors['website'] : 'error';
+      }
+      elseif (!empty($website)) {
+        $formErrors['website'] = 'error';
+      }
+      else {
+        $formErrors['website'] = $formErrors['website'];
+      }
+
+      // # party
+      $formErrors['party'] = ($party_id == 'other' && empty($party)) ? 'error' : $formErrors['party'];
+
+      // if submitted data are valid
+      if (!in_array('error', array_values($formErrors))) {
+        // SQL query
+      }
+      else {
+        // error : failed to validate data ($formErrors)
+      }
     }
     else {
-      $formErrors['website'] = $formErrors['website'];
+      // error : required data missing
     }
-
-    // # party
-    $formErrors['party'] = ($party_id == 'other' && empty($party)) ? 'error' : $formErrors['party'];
-
-    // if submitted data are valid
-    if (!in_array('error', array_values($formErrors))) {
-      // SQL query
-    }
-    else {
-      // display error
-    }
-  }
-  else {
-    // display error
   }
 ?>
 
