@@ -56,16 +56,16 @@ if ($_SERVER['HTTPS']
     $website   = !empty($_POST['website']) ? htmlspecialchars($_POST['website']) : '';
     $party     = !empty($_POST['party']) ? htmlspecialchars($_POST['party']) : '';
 
-    if (!empty($_POST['firstname'])
-     && !empty($_POST['name'])
-     && !empty($_POST['sex'])
-     && !empty($_POST['gsm'])
-     && !empty($_POST['mail'])
-     && !empty($_POST['town_id'])
-     && !empty($_POST['party_id'])
-     && !empty($_POST['list'])
-     && !empty($_POST['position'])
-     && !empty($_POST['pact']) && is_array($_POST['pact']))
+    if (!empty($firstname)
+     && !empty($name)
+     && !empty($sex)
+     && !empty($gsm)
+     && !empty($mail)
+     && !empty($town_id)
+     && !empty($party_id)
+     && !empty($list)
+     && !empty($position)
+     && !empty($pact) && is_array($pact))
     {
       // validation
 
