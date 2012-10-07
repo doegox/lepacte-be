@@ -36,6 +36,7 @@ if ($_SERVER['HTTPS']
   if (isset($_POST['form'])
    && !empty($_POST['firstname'])
    && !empty($_POST['name'])
+   && !empty($_POST['sex'])
    && !empty($_POST['gsm'])
    && !empty($_POST['mail'])
    && !empty($_POST['town_id'])
