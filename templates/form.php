@@ -107,6 +107,8 @@ if ($_SERVER['HTTPS']
       // if submitted data are valid
       if (!in_array('error', array_values($formErrors))) {
         // SQL query
+        echo "OK, SQL query... TODO";
+        exit;
       }
       else {
         $formWarning = '<div id="form-errors"><p>Une ou plusieurs erreurs sont survenues lors de la tentative d\'envoi du formulaire :</p><ul>';
