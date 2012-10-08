@@ -4,8 +4,8 @@ $httpStatus = array(
   '403' => array(
     'header'   => 'HTTP/1.1 403 Forbidden',
     'title'    => '403 Forbidden',
-    'abstract' => 'Forbidden',
-    'details'  => '<p>You don\'t have permission to access this URL on this server.</p><p>Retourner sur <a href="' . $path . '">LePacte.be</a>.</p>'
+    'abstract' => 'Echec',
+    'include'  => 'error403.inc'
   ),
   '404' => array(
     'header'   => 'HTTP/1.0 404 Not Found',
@@ -38,7 +38,12 @@ header($httpStatus['header']);
 <div id="wrapper">
   <h1><?= $httpStatus['abstract']; ?></h1>
 
-  <?= $httpStatus['details']; ?>
+<?php
+  if (array_key_exists('details', $httpStatus))
+    echo $httpStatus['details'];
+  if (array_key_exists('include', $httpStatus))
+    include $httpStatus['include'];
+?>
 </div>
 </body>
 </html>
