@@ -113,12 +113,7 @@
       <div id="auth-mail">
         <p>En envoyant un scan du formulaire completé par e-mail&nbsp;:</p>
         <ul>
-          <li>Télécharger et imprimer les formulaires
-            <ul>
-              <li>Soit au <a href="data/Les_pactes_des_libertes_numeriques_2012.pdf">format PDF</a>&nbsp;;</li>
-              <li>Soit au <a href="data/Les_pactes_des_libertes_numeriques_2012.odt">format ODT</a> (<a href="https://fr.wikipedia.org/wiki/OpenDocument">OpenDocument</a>)&nbsp;;</li>
-            </ul>
-          </li>
+          <li>Télécharger et imprimer le formulaire au <a href="data/2012_lepacte-be.pdf">format PDF</a>&nbsp;;</li>
           <li>Compléter et signer le document&nbsp;;</li>
           <li>Envoyer un scan du document (ou photo smartphone lisible) à <a href="mailto:jesigne@lepacte.be">jesigne@lepacte.be</a></li>
         </ul>
