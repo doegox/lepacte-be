@@ -169,7 +169,7 @@ if ($_SERVER['HTTPS']
   </p>
 
   <p class="row">
-    <label for="phone">Télphone (fixe)</label>
+    <label for="phone">Téléphone (fixe)</label>
     <input type="text" name="phone" value="<?= $phone; ?>" id="phone" />
   </p>
 
