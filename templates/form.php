@@ -487,7 +487,7 @@ if ($_SERVER['HTTPS']
         <optgroup label="Provinces">
           <option value="385">Province du Brabant wallon</option>
           <option value="386">Province du Hainaut</option>
-          <option value="387">Province de Lège</option>
+          <option value="387">Province de Liège</option>
           <option value="388">Province du Luxembourg</option>
           <option value="389">Province de Namur</option>
         </optgroup>
