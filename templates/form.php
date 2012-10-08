@@ -75,6 +75,18 @@ if ($_SERVER['HTTPS']
       // # mail
       $formErrors['mail'] = filter_var($mail, FILTER_VALIDATE_EMAIL) ? $formErrors['mail'] : 'error';
 
+      // # website
+      if (preg_match('!^(https?://|www\d*\.)(\[?((?:\d+\.){3}\d+|(?:[a-f\d]*:?){3,})\]?|[a-z\d\.-]+(?:\.[a-z]{2,4}))(?::\d+)?(/[\w#%@\$&/\?\!\.:;\'\*\+-=~\(\)\[\]{}]*)*$!i', $website, $matches))
+      {
+        $formErrors['website'] = (empty($matches[3]) || (!empty($matches[3]) && @inet_pton($matches[3]))) ? $formErrors['website'] : 'error';
+      }
+      elseif (!empty($website)) {
+        $formErrors['website'] = 'error';
+      }
+      else {
+        $formErrors['website'] = $formErrors['website'];
+      }
+
       // # town_id
       $formErrors['town_id'] = intval($town_id) ? $formErrors['town_id'] : 'error';
 
@@ -89,18 +101,6 @@ if ($_SERVER['HTTPS']
         $formErrors['pact'] = in_array($submitedPact, array('software', 'data', 'internet')) ? $formErrors['pact'] : 'error';
       }
 
-      // # website
-      if (preg_match('!^(https?://|www\d*\.)(\[?((?:\d+\.){3}\d+|(?:[a-f\d]*:?){3,})\]?|[a-z\d\.-]+(?:\.[a-z]{2,4}))(?::\d+)?(/[\w#%@\$&/\?\!\.:;\'\*\+-=~\(\)\[\]{}]*)*$!i', $website, $matches))
-      {
-        $formErrors['website'] = (empty($matches[3]) || (!empty($matches[3]) && @inet_pton($matches[3]))) ? $formErrors['website'] : 'error';
-      }
-      elseif (!empty($website)) {
-        $formErrors['website'] = 'error';
-      }
-      else {
-        $formErrors['website'] = $formErrors['website'];
-      }
-
       // # party
       $formErrors['party'] = ($party_id == 'other' && empty($party)) ? 'error' : $formErrors['party'];
 
@@ -109,17 +109,28 @@ if ($_SERVER['HTTPS']
         // SQL query
       }
       else {
-        // error : failed to validate data ($formErrors)
+        $formWarning = '<div id="form-errors"><p>Une ou plusieurs erreurs sont survenues lors de la tentative d\'envoi du formulaire :</p><ul>';
+        foreach($formErrors as $field => $errorStatus) {
+          if ($errorStatus == 'error')
+          {
+            $formWarning .= $field == 'mail' ? '<li>L\'adresse e-mail indiquée n\'est pas valide.</li>' : '';
+            $formWarning .= $field == 'website' ? '<li>Le site web indiqué n\'est pas valide.</li>' : '';
+            $formWarning .= $field == 'position' ? '<li>La place indiquée n\'est pas valide (chiffres uniquement).</li>' : '';
+          }
+        }
+        $formWarning .= '</ul></div>';
       }
     }
     else {
-      // error : required data missing
+      $formWarning = '<div id="form-errors"><p>Il est indispensable de compléter tous les champs requis.</p></div>';
     }
   }
 ?>
 
   <form method="post" action="form" enctype="multipart/form-data" id="step-3">
   <h2>Complétion du formulaire</h2>
+
+  <?= $formWarning; ?>
 
   <p>Les champs marqués d'un <span class="required">(astérisque)</span> sont requis.</p>
 

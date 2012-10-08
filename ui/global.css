@@ -200,7 +200,9 @@ fieldset .signature {
   margin: 14px;
   padding: 0;
 }
-
+#form-errors {
+  color: #bc2626;
+}
 
 
 
