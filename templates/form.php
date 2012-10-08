@@ -537,13 +537,6 @@ if ($_SERVER['HTTPS']
     </p>
   </fieldset>
 
-  <fieldset>
-    <legend>Le certificat de votre eID fera preuve de signature</legend>
-    <p class="center">
-      <?= $_SERVER['SSL_CLIENT_S_DN'] ?>
-    </p>
-  </fieldset>
-
   <p class="button">
     <input type="hidden" name="form" value="" />
     <input type="submit" class="green" value="Envoyer" />
