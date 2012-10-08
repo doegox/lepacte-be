@@ -21,4 +21,5 @@ Vous pouvez alors vérifier le bon fonctionnement de votre installation sur <a h
 
 
   <p>Retourner sur <a href="<?= $path; ?>">Je Signe LePacte.be</a>.</p>
+<p class="center" id="footer"><?= $lang['footer']; ?></p>
 </div>

@@ -122,6 +122,7 @@
   </div>
   </form>
 </div>
+<p class="center" id="footer"><?= $lang['footer']; ?></p>
 
 <script src="js/jquery-1-8-2.min.js"></script>
 <script>

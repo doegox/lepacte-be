@@ -18,6 +18,10 @@ body {
 h1 {
   margin-bottom: 0;
 }
+#footer {
+  font-size: 14px;
+  font-style:italic;
+}
 .pact {
   position: relative;
   border: 1px solid #ccc;
