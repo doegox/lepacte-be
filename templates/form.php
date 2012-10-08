@@ -507,6 +507,7 @@ if ($_SERVER['HTTPS']
         <option value="14">SLP - Sociaal-liberale</option>
         <option value="10">sp.a - Socialistische partij - anders</option>
         <option value="17">Vlaams belang</option>
+        <option value="2" id="independent">Indépendant - sans parti </option>
         <option value="1" id="other-party">(autre)</option>
       </select>
       <label for="party">Autre parti</label><input type="text" name="party" value="<?= $party; ?>" id="party" class="tiny" />
