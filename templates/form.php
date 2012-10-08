@@ -109,7 +109,7 @@ if ($_SERVER['HTTPS']
         // SQL query
       }
       else {
-        $formWarning = '<div id="form-errors"><p>Une ou plusieurs erreurs sont servenues lors de la tentative d\'envoi du formulaire :</p><ul>';
+        $formWarning = '<div id="form-errors"><p>Une ou plusieurs erreurs sont survenues lors de la tentative d\'envoi du formulaire :</p><ul>';
         foreach($formErrors as $field => $errorStatus) {
           if ($errorStatus == 'error')
           {
