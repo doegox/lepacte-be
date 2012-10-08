@@ -62,8 +62,10 @@ if ($_SERVER['HTTPS']
      && !empty($gsm)
      && !empty($mail)
      && !empty($town_id)
-     && ((!empty($party_id) && !empty($list) && !empty($position))
-      || ($party_id == '2'))
+     && !empty($party_id)
+     && (!empty($list)
+      || in_array($town_id, array('385', '386', '387', '388', '389')))
+     && !empty($position)
      && !empty($pact) && is_array($pact))
     {
       // validation
@@ -193,13 +195,6 @@ if ($_SERVER['HTTPS']
       <label for="town-id">Commune / Province</label>
       <select name="town_id" id="town-id" required="required">
         <option value=""></option>
-        <optgroup label="Provinces">
-          <option value="385">Province du Brabant wallon</option>
-          <option value="386">Province du Hainaut</option>
-          <option value="387">Province de Lège</option>
-          <option value="388">Province du Luxembourg</option>
-          <option value="389">Province de Namur</option>
-        </optgroup>
         <optgroup label="Communes">
           <option value="100">Aiseau-Presles</option>
           <option value="101">Amay</option>
@@ -487,6 +482,13 @@ if ($_SERVER['HTTPS']
           <option value="383">Woluwe-Saint-Pierre</option>
           <option value="384">Yvoir</option>
         </optgroup>
+        <optgroup label="Provinces">
+          <option value="385">Province du Brabant wallon</option>
+          <option value="386">Province du Hainaut</option>
+          <option value="387">Province de Lège</option>
+          <option value="388">Province du Luxembourg</option>
+          <option value="389">Province de Namur</option>
+        </optgroup>
       </select>
     </p>
 
@@ -571,23 +573,24 @@ function hideParty() {
 };
 
 function showList() {
-  $('#list').parent().show();
-  $('#list').attr('required', 'required');
-  $('#position').attr('required', 'required');
+  $('#list').prev('label').show();
+  $('#list').show().attr('required', 'required');
 }
 
 function hideList() {
-  $('#list').parent().hide();
-  $('#list').removeAttr('required');
-  $('#position').removeAttr('required');
+  $('#list').prev('label').hide();
+  $('#list').hide().removeAttr('required');
 }
+
+$('#town-id').bind('change', function() {
+  $(this).children().children(':selected').parent().attr('label') == 'Provinces' ? hideList() : showList();
+});
 
 $('#party').prev('label').hide();
 $('#party').hide();
 
 $('#party-id').bind('change', function() {
   $(this).children(':selected').attr('value') == '1' ? showParty('focus') : hideParty();
-  $(this).children(':selected').attr('value') == '2' ? hideList() : showList();
 });
 
 $('.signature label').each(function() {
@@ -601,7 +604,7 @@ $('.signature label').each(function() {
 echo !empty($town_id) && intval($town_id) ? '$("#town-id option[value=' . $town_id . ']").attr("selected", "selected");' : '';
 echo !empty($party_id) && intval($party_id) ? '$("#party-id option[value=' . $party_id . ']").attr("selected", "selected");' : '';
 echo !empty($party) && $party_id == '1' ? 'showParty();' : '';
-echo $party_id == '2' ? 'hideList();' : '';
+echo in_array($town_id, array('385', '386', '387', '388', '389')) ? 'hideList();' : '';
 
 ?>
 </script>
