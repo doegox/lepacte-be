@@ -8,7 +8,7 @@ Vous avez besoin :
 <li><strong>d'un lecteur de carte eID.</strong></li>
 <li>d'installer le <strong>programme pour lire la carte eID</strong>, à télécharger sur : <a href="http://eid.belgium.be"> http://eid.belgium.be. </a>(Icône eID Quick Install). <br>De plus amples informations sur la carte eID et le lecteur de carte sont également reprises sur le site.</li>
 </ul>
-
+Vous pouvez alors vérifier le bon fonctionnement de votre installation sur <a href="http://www.test.eid.belgium.be/">http://www.test.eid.belgium.be/</a>.<br><br><br>
 
 <strong>FAQ</strong> :
 <br>
