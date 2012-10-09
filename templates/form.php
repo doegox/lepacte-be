@@ -99,7 +99,7 @@ if ($_SERVER['HTTPS']
 
       // # pact
       foreach(array_values($pact) as $submitedPact) {
-        $formErrors['pact'] = in_array($submitedPact, array('software', 'data', 'internet')) ? $formErrors['pact'] : 'error';
+        $formErrors['pact'] = in_array($submitedPact, array('software', 'data', 'internet', 'none')) ? $formErrors['pact'] : 'error';
       }
 
       // # party
