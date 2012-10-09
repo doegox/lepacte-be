@@ -25,7 +25,8 @@ if ($_SERVER['HTTPS']
  && isset($_SERVER['SSL_CLIENT_S_DN_S'])
  && isset($_SERVER['SSL_CLIENT_S_DN']))
 {
-  $showform = true;
+  $showForm   = true;
+
   $firstnames = explode(' ', $_SERVER['SSL_CLIENT_S_DN_G']);
   $firstname  = $firstnames[0];
 
@@ -155,15 +156,18 @@ if ($_SERVER['HTTPS']
             'BELEGIS2010'   => '',
             'list'          => $list
           ));
+
           $candidate_id = $db->lastInsertId();
+
+          $showForm     = false;
+
+          echo '<h2>Formulaire enregistré avec succès</h2>';
+          echo '<p>Merci d\'avoir exprimé vos engagements !<p>';
+          echo '<p>Votre profil est consultable à l\'adresse suivante : <a href="http://lepacte.be/communales2012/?action=editer_candidat&id=' . $candidate_id . '">http://lepacte.be/communales2012/?action=editer_candidat&id=' . $candidate_id . '</a>.';
         }
         catch(PDOException $e) {
           echo '<div id="form-errors"><p>Une erreur est survenue lors de la tentative d\'enregistrement des informations dans notre base de données.</p></div>';
-          die();
         }
-        echo "Merci d'avoir exprimé vos engagements.<br>";
-        echo "Vos choix sont visibles <a href=\"http://lepacte.be/communales2012/?action=editer_candidat&id=$candidate_id\">ici</a>.";
-        $showform = false;
       }
       else {
         $formWarning = '<div id="form-errors"><p>Une ou plusieurs erreurs sont survenues lors de la tentative d\'envoi du formulaire :</p><ul>';
@@ -182,9 +186,9 @@ if ($_SERVER['HTTPS']
       $formWarning = '<div id="form-errors"><p>Il est indispensable de compléter tous les champs requis.</p></div>';
     }
   }
-}
-if ($showform)
-{
+
+  if ($showForm)
+  {
 ?>
 
   <form method="post" action="form" enctype="multipart/form-data" id="step-3">
@@ -612,6 +616,7 @@ if ($showform)
 
 <?php
 
+  }
 }
 
 ?>
