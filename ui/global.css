@@ -88,7 +88,7 @@ fieldset .signature {
 .center {
   text-align: center;
 }
-.pact:before {
+.pact:after {
   display: block;
   position: absolute;
   top: 10px;
@@ -97,13 +97,13 @@ fieldset .signature {
   width: 62px;
   content: ' ';
 }
-#software:before {
+#software:after {
   background: url('imgs/software.png') 0 0 no-repeat;
 }
-#data:before {
+#data:after {
   background: url('imgs/data.png') 0 0 no-repeat;
 }
-#internet:before {
+#internet:after {
   background: url('imgs/internet.png') 0 0 no-repeat;
 }
 .required:before {
