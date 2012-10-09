@@ -115,7 +115,8 @@
         <ul>
           <li>Télécharger et imprimer le formulaire au <a href="data/lepacte-be_des_libertes_numeriques_2012.pdf">format PDF</a>&nbsp;;</li>
           <li>Compléter et signer le document&nbsp;;</li>
-          <li>Envoyer un scan du document (ou photo smartphone lisible) à <a href="mailto:jesigne@lepacte.be">jesigne@lepacte.be</a></li>
+          <li>Envoyer un scan du document (ou photo smartphone lisible) à <a href="mailto:jesigne@lepacte.be">jesigne@lepacte.be</a>&nbsp;;</li>
+          <li>Patienter le temps qu'un bénévole encode manuellement vos données</li>
         </ul>
       </div>
     </div>
