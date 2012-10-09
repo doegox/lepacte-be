@@ -25,6 +25,7 @@ if ($_SERVER['HTTPS']
  && isset($_SERVER['SSL_CLIENT_S_DN_S'])
  && isset($_SERVER['SSL_CLIENT_S_DN']))
 {
+  $showform = true;
   $firstnames = explode(' ', $_SERVER['SSL_CLIENT_S_DN_G']);
   $firstname  = $firstnames[0];
 
@@ -108,8 +109,9 @@ if ($_SERVER['HTTPS']
       // if submitted data are valid
       if (!in_array('error', array_values($formErrors))) {
         // SQL query
-        echo "OK, SQL query... TODO";
-        exit;
+        echo "Merci d'avoir exprimé vos engagements.<br>";
+        echo "Vos choix sont visibles <a href=\"http://lepacte.be/communales2012/?action=editer_candidat&id=$candidat_id\">ici</a>.";
+        $showform = false;
       }
       else {
         $formWarning = '<div id="form-errors"><p>Une ou plusieurs erreurs sont survenues lors de la tentative d\'envoi du formulaire :</p><ul>';
@@ -128,6 +130,9 @@ if ($_SERVER['HTTPS']
       $formWarning = '<div id="form-errors"><p>Il est indispensable de compléter tous les champs requis.</p></div>';
     }
   }
+}
+if ($showform)
+{
 ?>
 
   <form method="post" action="form" enctype="multipart/form-data" id="step-3">
