@@ -112,12 +112,13 @@ if ($_SERVER['HTTPS']
 
         $decision = in_array('none', $pact) ? 'non' : 'signe-valide';
         $civil    = $sex == 'man' ? 'Mr' : 'Mrs';
-        $address  = $street . ', ' . $number;
+        $address  = !empty($street) ? $street . ', ' . $number : '';
         $com      = $party_id == '1' ? 'parti: ' . $party : '';
+        $valid    = $_SERVER['SSL_CLIENT_S_DN_S'] == $name ? 1 : 0 ;
         $data     = in_array('data', $pact) ? 1 : 0;
         $software = in_array('software', $pact) ? 1 : 0;
         $internet = in_array('internet', $pact) ? 1 : 0;
-        $list     = in_array($town_id, array('385', '386', '387', '388', '389')) ? $list : '';
+        $list     = in_array($town_id, array('385', '386', '387', '388', '389')) ? '' : $list;
 
         try {
           $db  = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName, $dbUser, $dbPsw);
@@ -143,7 +144,7 @@ if ($_SERVER['HTTPS']
             'com_admin'     => $_SERVER['SSL_CLIENT_S_DN'],
             'elected'       => 0,
             'finalist'      => 0,
-            'validation'    => 1,
+            'validation'    => $valid,
             'author'        => 0,
             'election'      => 'BECOMM2012',
             'position'      => $position,
@@ -152,12 +153,14 @@ if ($_SERVER['HTTPS']
             'pact_internet' => $internet,
             'list'          => $list
           ));
+          $candidate_id = $db->lastInsertId();
         }
         catch(PDOException $e) {
           echo '<div id="form-errors"><p>Une erreur est survenue lors de la tentative d\'enregistrement des informations dans notre base de données.</p></div>';
+          die();
         }
         echo "Merci d'avoir exprimé vos engagements.<br>";
-        echo "Vos choix sont visibles <a href=\"http://lepacte.be/communales2012/?action=editer_candidat&id=$candidat_id\">ici</a>.";
+        echo "Vos choix sont visibles <a href=\"http://lepacte.be/communales2012/?action=editer_candidat&id=$candidate_id\">ici</a>.";
         $showform = false;
       }
       else {
@@ -207,12 +210,12 @@ if ($showform)
       <option value="man"<?= $sex == 'man' ? ' selected="selected"' : ''; ?>>Monsieur</option>
     </select>
   </p>
-
+<!--
   <p class="row">
     <label for="picture" class="picture">Photo</label>
     <input type="file" name="picture" id="picture" />
   </p>
-
+-->
   <p class="row">
     <label for="street">Rue</label> <input type="text" name="street" value="<?= $street; ?>" id="street" />
     <label for="number">N°</label> <input type="text" name="number" value="<?= $number; ?>" id="number" class="tiny" />
