@@ -39,7 +39,7 @@ if ($_SERVER['HTTPS']
     $firstname = htmlspecialchars($_POST['firstname']);
     $name      = htmlspecialchars($_POST['name']);
     $sex       = htmlspecialchars($_POST['sex']);
-    $gsm       = htmlspecialchars($_POST['gsm']);
+    $phone     = htmlspecialchars($_POST['phone']);
     $mail      = htmlspecialchars($_POST['mail']);
     $town_id   = htmlspecialchars($_POST['town_id']);
     $party_id  = htmlspecialchars($_POST['party_id']);
@@ -52,14 +52,13 @@ if ($_SERVER['HTTPS']
     $number    = !empty($_POST['number']) ? htmlspecialchars($_POST['number']) : '';
     $city      = !empty($_POST['city']) ? htmlspecialchars($_POST['city']) : '';
     $postcode  = !empty($_POST['postcode']) ? htmlspecialchars($_POST['postcode']) : '';
-    $phone     = !empty($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '';
     $website   = !empty($_POST['website']) ? htmlspecialchars($_POST['website']) : '';
     $party     = !empty($_POST['party']) ? htmlspecialchars($_POST['party']) : '';
 
     if (!empty($firstname)
      && !empty($name)
      && !empty($sex)
-     && !empty($gsm)
+     && !empty($phone)
      && !empty($mail)
      && !empty($town_id)
      && !empty($party_id)
@@ -170,13 +169,8 @@ if ($_SERVER['HTTPS']
   </p>
 
   <p class="row">
-    <label for="phone">Téléphone (fixe)</label>
-    <input type="text" name="phone" value="<?= $phone; ?>" id="phone" />
-  </p>
-
-  <p class="row">
-    <label for="gsm" class="required">GSM</label>
-    <input type="text" name="gsm" value="<?= $gsm; ?>" id="gsm" required="required" />
+    <label for="phone" class="required">Téléphone / GSM</label>
+    <input type="text" name="phone" value="<?= $phone; ?>" id="phone" required="required" />
   </p>
 
   <p class="row">
