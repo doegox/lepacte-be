@@ -21,9 +21,13 @@
 
 // if the current page is served over HTTPS and eID info are available
 if ($_SERVER['HTTPS']
- && isset($_SERVER['SSL_CLIENT_S_DN_G'])
- && isset($_SERVER['SSL_CLIENT_S_DN_S'])
- && isset($_SERVER['SSL_CLIENT_S_DN']))
+   && array_key_exists('SSL_CLIENT_I_DN_C', $_SERVER)
+     && ($_SERVER['SSL_CLIENT_I_DN_C'] == 'BE')
+   && array_key_exists('SSL_CLIENT_I_DN_CN', $_SERVER)
+     && in_array($_SERVER['SSL_CLIENT_I_DN_CN'], array('Citizen CA', 'Foreigner CA'))
+   && array_key_exists('SSL_CLIENT_S_DN', $_SERVER)
+   && array_key_exists('SSL_CLIENT_S_DN_G', $_SERVER)
+   && array_key_exists('SSL_CLIENT_S_DN_S', $_SERVER))
 {
   $showForm   = true;
 
