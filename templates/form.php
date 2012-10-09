@@ -543,6 +543,11 @@ if ($_SERVER['HTTPS']
       <input type="checkbox" name="pact[]" value="internet" id="chk-internet" class="checkbox" <?= is_checked('internet', 'pact') ? 'checked="checked" ' : '' ?>/>
       <label for="chk-internet">Pacte de l'Internet libre</label>
     </p>
+
+    <p class="signature">
+      <input type="checkbox" name="pact[]" value="none" id="chk-none" class="checkbox" <?= is_checked('none', 'pact') ? 'checked="checked" ' : '' ?>/>
+      <label for="chk-none">Aucun</label>
+    </p>
   </fieldset>
 
   <p class="button">
@@ -596,6 +601,13 @@ $('#party-id').bind('change', function() {
 $('.signature label').each(function() {
   $(this).bind('click', function() {
     $(this).prev('input').toggleClass('checked');
+    $(this).attr('for') != 'chk-none' ? $('#chk-none').removeAttr('checked').removeClass('checked') : '';
+  });
+});
+
+$('#chk-none').bind('click', function() {
+  $('.signature label').each(function() {
+    $(this).attr('for') != 'chk-none' ? $(this).prev('input').removeAttr('checked').removeClass('checked') : '';
   });
 });
 
