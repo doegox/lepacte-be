@@ -98,9 +98,14 @@ if ($_SERVER['HTTPS']
       $formErrors['position'] = intval($position) ? $formErrors['position'] : 'error';
 
       // # pact
-      foreach(array_values($pact) as $submitedPact) {
-        $formErrors['pact'] = in_array($submitedPact, array('software', 'data', 'internet')) ? $formErrors['pact'] : 'error';
+      $somepactsigned = false;
+      $nonepactsigned = false;
+      foreach(array_values($pact) as $submittedPact) {
+        $formErrors['pact'] = in_array($submittedPact, array('software', 'data', 'internet', 'none')) ? $formErrors['pact'] : 'error';
+        $somepactsigned = in_array($submittedPact, array('software', 'data', 'internet')) ? true : $somepactsigned;
+        $nonepactsigned = ($submittedPact == 'none') ? true : $nonepactsigned;
       }
+      $formErrors['pactxor'] = $nonepactsigned xor $somepactsigned ? $formErrors['pactxor'] : 'error';
 
       // # party
       $formErrors['party'] = ($party_id == 'other' && empty($party)) ? 'error' : $formErrors['party'];
@@ -119,6 +124,7 @@ if ($_SERVER['HTTPS']
             $formWarning .= $field == 'mail' ? '<li>L\'adresse e-mail indiquée n\'est pas valide.</li>' : '';
             $formWarning .= $field == 'website' ? '<li>Le site web indiqué n\'est pas valide.</li>' : '';
             $formWarning .= $field == 'position' ? '<li>La place indiquée n\'est pas valide (chiffres uniquement).</li>' : '';
+            $formWarning .= $field == 'pactxor' ? '<li>Le choix des Pactes est incohérent avec le choix de refuser de les signer.</li>' : '';
           }
         }
         $formWarning .= '</ul></div>';
@@ -544,6 +550,11 @@ if ($_SERVER['HTTPS']
     <p class="signature">
       <input type="checkbox" name="pact[]" value="internet" id="chk-internet" class="checkbox" <?= is_checked('internet', 'pact') ? 'checked="checked" ' : '' ?>/>
       <label for="chk-internet">Pacte de l'Internet libre</label>
+    </p>
+
+    <p class="signature">
+      <input type="checkbox" name="pact[]" value="none" id="chk-none" class="checkbox" <?= is_checked('none', 'pact') ? 'checked="checked" ' : '' ?>/>
+      <label for="chk-none">Je refuse de signer les Pactes et souhaite le faire savoir</label>
     </p>
   </fieldset>
 
