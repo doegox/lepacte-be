@@ -105,8 +105,56 @@ if ($_SERVER['HTTPS']
       $formErrors['party'] = ($party_id == 'other' && empty($party)) ? 'error' : $formErrors['party'];
 
       // if submitted data are valid
-      if (!in_array('error', array_values($formErrors))) {
-        // SQL query
+      if (!in_array('error', array_values($formErrors)))
+      {
+        // data formatting
+
+        $decision = in_array('none', $pact) ? 'non' : 'signe-valide';
+        $civil    = $sex == 'man' ? 'Mr' : 'Mrs';
+        $address  = $street . ', ' . $number;
+        $com      = $party_id == '1' ? 'parti: ' . $party : '';
+        $data     = in_array('data', $pact) ? 1 : 0;
+        $software = in_array('software', $pact) ? 1 : 0;
+        $internet = in_array('internet', $pact) ? 1 : 0;
+        $list     = in_array($town_id, array('385', '386', '387', '388', '389')) ? $list : '';
+
+        try {
+          $db  = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName, $dbUser, $dbPsw);
+          $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+          $req = $db->prepare('INSERT INTO candidat(circonscription_id, parti_id, decision, civilite, nom, prenom, tel, fax, email, web, adresse, code_postal, ville, commentaire, commentaire_admin, elu, finaliste, validation, auteur_validation, election, additional_position_in_list, additional_Signed_Free_Data_Pact, additional_Signed_Free_Software_Pact, additional_Signed_Free_Internet_Pact, additional_listecomm2012) VALUES(:town_id, :party_id, :decision, :sex, :name, :firstname, :phone, :fax, :mail, :website, :address, :postcode, :city, :com, :com_admin, :elected, :finalist, :validation, :author, :election, :position, :pact_data, :pact_software, :pact_internet, :list)');
+
+          $req->execute(array(
+            'town_id'       => $town_id,
+            'party_id'      => $party_id,
+            'decision'      => $decision,
+            'sex'           => $civil,
+            'name'          => $name,
+            'firstname'     => $firstname,
+            'phone'         => $phone,
+            'fax'           => '',
+            'mail'          => $mail,
+            'website'       => $website,
+            'address'       => $address,
+            'postcode'      => $postcode,
+            'city'          => $city,
+            'com'           => $com,
+            'com_admin'     => $_SERVER['SSL_CLIENT_S_DN'],
+            'elected'       => 0,
+            'finalist'      => 0,
+            'validation'    => 1,
+            'author'        => 0,
+            'election'      => 'BECOMM2012',
+            'position'      => $position,
+            'pact_data'     => $data,
+            'pact_software' => $software,
+            'pact_internet' => $internet,
+            'list'          => $list
+          ));
+        }
+        catch(PDOException $e) {
+          echo '<div id="form-errors"><p>Une erreur est survenue lors de la tentative d\'enregistrement des informations dans notre base de données.</p></div>';
+        }
       }
       else {
         $formWarning = '<div id="form-errors"><p>Une ou plusieurs erreurs sont survenues lors de la tentative d\'envoi du formulaire :</p><ul>';
