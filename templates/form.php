@@ -124,7 +124,7 @@ if ($_SERVER['HTTPS']
           $db  = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName, $dbUser, $dbPsw);
           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-          $req = $db->prepare('INSERT INTO candidat(circonscription_id, parti_id, decision, civilite, nom, prenom, tel, fax, email, web, adresse, code_postal, ville, commentaire, commentaire_admin, elu, finaliste, validation, auteur_validation, election, additional_position_in_list, additional_Signed_Free_Data_Pact, additional_Signed_Free_Software_Pact, additional_Signed_Free_Internet_Pact, additional_listecomm2012) VALUES(:town_id, :party_id, :decision, :sex, :name, :firstname, :phone, :fax, :mail, :website, :address, :postcode, :city, :com, :com_admin, :elected, :finalist, :validation, :author, :election, :position, :pact_data, :pact_software, :pact_internet, :list)');
+          $req = $db->prepare('INSERT INTO candidat(circonscription_id, parti_id, decision, civilite, nom, prenom, tel, fax, email, web, adresse, code_postal, ville, commentaire, commentaire_admin, elu, finaliste, validation, auteur_validation, election, additional_position_in_list, additional_decision_BEREGEU2009, additional_Signed_Free_Data_Pact, additional_Signed_Free_Software_Pact, additional_Signed_Free_Internet_Pact, additional_decision_BELEGIS2010, additional_listecomm2012) VALUES(:town_id, :party_id, :decision, :sex, :name, :firstname, :phone, :fax, :mail, :website, :address, :postcode, :city, :com, :com_admin, :elected, :finalist, :validation, :author, :election, :position, :BEREGEU2009, :pact_data, :pact_software, :pact_internet, :BELEGIS2010, :list)');
 
           $req->execute(array(
             'town_id'       => $town_id,
@@ -148,9 +148,11 @@ if ($_SERVER['HTTPS']
             'author'        => 0,
             'election'      => 'BECOMM2012',
             'position'      => $position,
+            'BEREGEU2009'   => '',
             'pact_data'     => $data,
             'pact_software' => $software,
             'pact_internet' => $internet,
+            'BELEGIS2010'   => '',
             'list'          => $list
           ));
           $candidate_id = $db->lastInsertId();
