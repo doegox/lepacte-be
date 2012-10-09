@@ -44,6 +44,8 @@ header($httpStatus['header']);
   if (array_key_exists('include', $httpStatus))
     include $httpStatus['include'];
 ?>
+<p>Retourner sur <a href="<?= $path; ?>">Je Signe LePacte.be</a>.</p>
+<p class="center" id="footer"><?= $lang['footer']; ?></p>
 </div>
 </body>
 </html>

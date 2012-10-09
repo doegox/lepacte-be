@@ -19,7 +19,4 @@ Vous pouvez alors vérifier le bon fonctionnement de votre installation sur <a h
 <SPAN style="color:#FF0000">Problème de connexion possible lors d'authentifications successives avec 2 eID:</SPAN>
 <br>Avec certains navigateurs (comme Internet Explorer), la personne authentifiée en premier doit <u>fermer le navigateur</u> pour que l'autre personne puisse se connecter avec sa propre eID.
 
-
-  <p>Retourner sur <a href="<?= $path; ?>">Je Signe LePacte.be</a>.</p>
-<p class="center" id="footer"><?= $lang['footer']; ?></p>
 </div>

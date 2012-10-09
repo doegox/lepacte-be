@@ -622,6 +622,12 @@ if ($_SERVER['HTTPS']
 
   }
 }
+else
+{
+  echo '<strong>Erreur</strong>';
+  include 'error403.inc';
+  echo '<p>Retourner sur <a href='. $path .'>Je Signe LePacte.be</a>.</p>';
+}
 
 ?>
 </div>
