@@ -3,7 +3,7 @@
 <head lang="<?= $language; ?>">
   <meta charset="utf-8" />
 
-  <link rel="stylesheet" media="screen" href="<?= $path; ?>ui/global.css" />
+  <link rel="stylesheet" media="screen" href="/ui/global.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -17,7 +17,7 @@
 
   <p class="center" id="abstract"><?= $lang['abstract']; ?></p>
 
-  <form method="post" action="form">
+  <form method="post" action="https://<?=$_SERVER['SERVER_NAME']?>/form">
   <div class="step" id="step-1">
     <h2>Sélection des pactes</h2>
 
@@ -94,6 +94,7 @@
   <div class="step" id="step-2">
     <h2>Authentification</h2>
 
+    <p><strong>Attention: </strong> Vous allez être redirigé vers une connection sécurisée, il est probable que votre browser émette une alerte car le certificat de ce site est signé par <a href="http://www.cacert.org">CACert.org</a>, une autorité de certification collaborative qui n'est pas encore prise en charge par la totalité des browsers. Vous pouvez donc ignorer cette alerte.</p>
     <p>Afin de limiter les risques de falsification, il est indispensable que vous confirmiez votre identité grâce à l'une des méthodes proposées.</p>
 
     <div id="auth">
@@ -104,7 +105,9 @@
           <li>Insérer votre carte d'identité électronique dans le lecteur&nbsp;;</li>
           <li>Cliquer sur le bouton ci-dessous, votre PIN vous sera demandé pour vous authentifier.</li>
         </ul>
-        <p class="button"><input type="submit" value="Accéder au formulaire avec votre eID" class="green" /></p>
+        <p class="button">
+          <input type="submit" name="with_eid" value="Accéder au formulaire avec votre eID" class="green" />
+        </p>
         <p>Types valides de cartes d'identité électronique pour cette procédure:</p>
         <p><img src="ui/imgs/eidvalid.png" width="143" height="42" /></p>
         <p><a href="http://eid.belgium.be/fr/utiliser_votre_eid/" target="_blank">Besoin d'info sur l'usage de l'eID?</a></p>
@@ -112,10 +115,11 @@
       <p id="auth-or"><span>ou</span></p>
       <div id="auth-mail">
         <p>En envoyant un scan du formulaire completé par e-mail&nbsp;:</p>
+        <p class="button">
+          <input type="submit" name="without_eid" value="Accéder au formulaire sans eID" class="green" />
+        </p>
         <ul>
-          <li>Télécharger et imprimer le formulaire au <a href="data/lepacte-be_des_libertes_numeriques_2012.pdf">format PDF</a>&nbsp;;</li>
-          <li>Compléter et signer le document&nbsp;;</li>
-          <li>Envoyer un scan du document (ou photo smartphone lisible) à <a href="mailto:jesigne@lepacte.be">jesigne@lepacte.be</a>&nbsp;;</li>
+          <li>Télécharger, imprimer, signer et renvoyer par email le formulaire&nbsp;;</li>
           <li>Patienter le temps qu'un bénévole encode manuellement vos données&nbsp;;</li>
           <li>Vous recevrez alors une confirmation par email.</li>
         </ul>

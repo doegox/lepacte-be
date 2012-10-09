@@ -11,7 +11,7 @@ $httpStatus = array(
     'header'   => 'HTTP/1.0 404 Not Found',
     'title'    => '404 Not found',
     'abstract' => 'Not found',
-    'details'  => '<p>The requested URL was not found on this server.</p><p>Retourner sur <a href="' . $path . '">LePacte.be</a>.</p>'
+    'details'  => '<p>The requested URL was not found on this server.</p>'
   )
 );
 
@@ -26,7 +26,7 @@ header($httpStatus['header']);
 <head lang="<?= $language; ?>">
   <meta charset="utf-8" />
 
-  <link rel="stylesheet" media="screen" href="<?= $path; ?>ui/global.css" />
+  <link rel="stylesheet" media="screen" href="/ui/global.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 

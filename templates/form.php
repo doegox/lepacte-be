@@ -3,7 +3,7 @@
 <head lang="<?= $language; ?>">
   <meta charset="utf-8" />
 
-  <link rel="stylesheet" media="screen" href="<?= $path; ?>ui/global.css" />
+  <link rel="stylesheet" media="screen" href="/ui/global.css" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -19,27 +19,31 @@
 
 <?php
 
-// if the current page is served over HTTPS and eID info are available
-if ($_SERVER['HTTPS']
-   && array_key_exists('SSL_CLIENT_I_DN_C', $_SERVER)
-     && ($_SERVER['SSL_CLIENT_I_DN_C'] == 'BE')
-   && array_key_exists('SSL_CLIENT_I_DN_CN', $_SERVER)
-     && in_array($_SERVER['SSL_CLIENT_I_DN_CN'], array('Citizen CA', 'Foreigner CA'))
-   && array_key_exists('SSL_CLIENT_S_DN', $_SERVER)
-   && array_key_exists('SSL_CLIENT_S_DN_G', $_SERVER)
-   && array_key_exists('SSL_CLIENT_S_DN_S', $_SERVER))
+// if the current page is served over HTTPS
+if ($_SERVER['HTTPS'])
 {
   $showForm   = true;
+  $clientcert = array_key_exists('SSL_CLIENT_I_DN_C', $_SERVER)
+             && ($_SERVER['SSL_CLIENT_I_DN_C'] == 'BE')
+             && array_key_exists('SSL_CLIENT_I_DN_CN', $_SERVER)
+             && in_array($_SERVER['SSL_CLIENT_I_DN_CN'], array('Citizen CA', 'Foreigner CA'))
+             && array_key_exists('SSL_CLIENT_S_DN', $_SERVER)
+             && array_key_exists('SSL_CLIENT_S_DN_G', $_SERVER)
+             && array_key_exists('SSL_CLIENT_S_DN_S', $_SERVER);
 
-  $firstnames = explode(' ', $_SERVER['SSL_CLIENT_S_DN_G']);
+if ((array_key_exists('with_eid', $_POST) && $clientcert) || array_key_exists('without_eid', $_POST))
+{
+  $eid        = array_key_exists('with_eid', $_POST) ? 1 : 0;
+
+  $firstnames = $clientcert ? explode(' ', $_SERVER['SSL_CLIENT_S_DN_G']) : array('');
   $firstname  = $firstnames[0];
 
-  $name       = $_SERVER['SSL_CLIENT_S_DN_S'];
+  $name       = $clientcert ? $_SERVER['SSL_CLIENT_S_DN_S'] : '';
 
-  $sex        = substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1) % 2 ? 'man' : 'woman';
+  $sex        = $clientcert ? (substr($_SERVER['SSL_CLIENT_S_DN'], -3, 1) % 2 ? 'man' : 'woman') : '';
 
   // if this very form was submitted
-  if (isset($_POST['form']))
+  if (array_key_exists('form', $_POST))
   {
     // required fields
     $firstname = htmlspecialchars($_POST['firstname']);
@@ -115,11 +119,12 @@ if ($_SERVER['HTTPS']
       {
         // data formatting
 
-        $decision = in_array('none', $pact) ? 'non' : 'signe-valide';
+        $decision = in_array('none', $pact) ? 'non' : ($clientcert ? 'signe-valide' : 'signe');
         $civil    = $sex == 'man' ? 'Mr' : 'Mrs';
         $address  = !empty($street) ? $street . ', ' . $number : '';
         $com      = $party_id == '1' ? 'parti: ' . $party : '';
-        $valid    = $_SERVER['SSL_CLIENT_S_DN_S'] == $name ? 1 : 0 ;
+        $comadmin = $clientcert ? $_SERVER['SSL_CLIENT_S_DN'] : $_SERVER['REMOTE_ADDR'];
+        $valid    = $clientcert && ($_SERVER['SSL_CLIENT_S_DN_S'] == $name) ? 1 : 0 ;
         $data     = in_array('data', $pact) ? 1 : 0;
         $software = in_array('software', $pact) ? 1 : 0;
         $internet = in_array('internet', $pact) ? 1 : 0;
@@ -146,7 +151,7 @@ if ($_SERVER['HTTPS']
             'postcode'      => $postcode,
             'city'          => $city,
             'com'           => $com,
-            'com_admin'     => $_SERVER['SSL_CLIENT_S_DN'],
+            'com_admin'     => $comadmin,
             'elected'       => 0,
             'finalist'      => 0,
             'validation'    => $valid,
@@ -165,9 +170,24 @@ if ($_SERVER['HTTPS']
 
           $showForm     = false;
 
-          echo '<h2>Formulaire enregistré avec succès</h2>';
-          echo '<p>Merci d\'avoir exprimé vos engagements !<p>';
-          echo '<p>Votre profil est consultable à l\'adresse suivante : <a href="http://lepacte.be/communales2012/?action=editer_candidat&id=' . $candidate_id . '">http://lepacte.be/communales2012/?action=editer_candidat&id=' . $candidate_id . '</a>.';
+?>
+          <h2>Formulaire enregistré avec succès</h2>
+          <p>Merci d'avoir exprimé vos engagements !</p>
+          <p>Votre profil est consultable à l'adresse suivante : <a href="http://lepacte.be/communales2012/?action=editer_candidat&id=<?=$candidate_id?>">http://lepacte.be/communales2012/?action=editer_candidat&id=<?=$candidate_id?></a></p>
+<?php
+          if (! $clientcert)
+          {
+?>
+          <h2>Pour le rendre public, afin de limiter les risques de falsification, il est indispensable que vous confirmiez votre identité:</h2>
+          <ul>
+            <li>Télécharger et imprimer le formulaire au <a href="data/lepacte-be_des_libertes_numeriques_2012.pdf">format PDF</a>&nbsp;;</li>
+            <li>Compléter et signer le document&nbsp;;</li>
+            <li>Envoyer un scan du document (ou photo smartphone lisible) à <a href="mailto:jesigne@lepacte.be">jesigne@lepacte.be</a>&nbsp;;</li>
+            <li>Patienter le temps qu'un bénévole encode manuellement vos données&nbsp;;</li>
+            <li>Vous recevrez alors une confirmation par email.</li>
+          </ul>
+<?php
+          }
         }
         catch(PDOException $e) {
           echo '<div id="form-errors"><p>Une erreur est survenue lors de la tentative d\'enregistrement des informations dans notre base de données.</p></div>';
@@ -614,7 +634,7 @@ if ($_SERVER['HTTPS']
 
   <p class="button">
     <input type="hidden" name="form" value="" />
-    <input type="submit" class="green" value="Envoyer" />
+    <input type="submit" name="<?=$eid?'with_eid':'without_eid'?>" class="green" value="Envoyer" />
   </p>
   </form>
 
@@ -625,10 +645,25 @@ if ($_SERVER['HTTPS']
 else
 {
   echo '<strong>Erreur</strong>';
-  include 'error403.inc';
+  if (array_key_exists('with_eid', $_POST))
+  {
+    // User wants to use eID but we didn't get eID certificate
+    include 'error403.inc';
+  }
+  else
+  {
+    // Page was accessed directly rather than via POST
+    echo '<p>Vous ne pouvez accéder directement à cette page.</p>';
+  }
   echo '<p>Retourner sur <a href='. $path .'>Je Signe LePacte.be</a>.</p>';
 }
-
+}
+else
+{
+  // Plain HTTP
+  echo '<p>Vous ne pouvez accéder directement à cette page.</p>';
+  echo '<p>Retourner sur <a href='. $path .'>Je Signe LePacte.be</a>.</p>';
+}
 ?>
 </div>
 <p class="center" id="footer"><?= $lang['footer']; ?></p>
