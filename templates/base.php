@@ -26,9 +26,9 @@
 
       <div class="awareness">
         <p>J’ai conscience que…</p>
-        <p>Le travail des acteurs du Logiciel Libre participe à la préservation des libertés fondamentales à l’ère du numérique, au partage du savoir et à la lutte contre la « fracture numérique ». Il constitue également une opportunité pour le public mais aussi pour l’indépendance technologique et la compétitivité de nos régions, de nos communautés, de la Belgique et de l’Europe.</p>
+        <p>Le travail des acteurs du Logiciel Libre participe à la préservation des libertés fondamentales à l’ère du numérique, au partage du savoir et à la lutte contre la «&nbsp;fracture numérique&nbsp;». Il constitue également une opportunité pour le public mais aussi pour l’indépendance technologique et la compétitivité de nos régions, de nos communautés, de la Belgique et de l’Europe.</p>
         <p>Le Logiciel Libre est un bien commun à protéger et à développer. Son existence repose sur le droit pour un auteur de divulguer son logiciel avec son code source et d’accorder à tous le droit de les utiliser, les copier, les adapter et les redistribuer, en version originale ou modifiée.</p>
-        <p>L’usage généralisé de standards ouverts permet à tous le l’accès, l’échange et la pérennité de l’information.</p>
+        <p>L’usage généralisé de standards ouverts permet à tous l’accès, l’échange et la pérennité de l’information.</p>
       </div>
 
       <div class="commitment">
