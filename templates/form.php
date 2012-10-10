@@ -73,7 +73,7 @@ if ((array_key_exists('with_eid', $_POST) && $clientcert) || array_key_exists('w
      && !empty($town_id)
      && !empty($party_id)
      && (!empty($list)
-      || in_array($town_id, array('385', '386', '387', '388', '389')))
+      || (intval($town_id) > 384))
      && !empty($position)
      && !empty($pact) && is_array($pact))
     {
@@ -128,7 +128,7 @@ if ((array_key_exists('with_eid', $_POST) && $clientcert) || array_key_exists('w
         $data     = in_array('data', $pact) ? 1 : 0;
         $software = in_array('software', $pact) ? 1 : 0;
         $internet = in_array('internet', $pact) ? 1 : 0;
-        $list     = in_array($town_id, array('385', '386', '387', '388', '389')) ? '' : $list;
+        $list     = (intval($town_id) > 384) ? '' : $list;
 
         try {
           $db  = new PDO('mysql:host=' . $dbHost . ';dbname=' . $dbName, $dbUser, $dbPsw);
@@ -564,12 +564,49 @@ if ((array_key_exists('with_eid', $_POST) && $clientcert) || array_key_exists('w
           <option value="383">Woluwe-Saint-Pierre</option>
           <option value="384">Yvoir</option>
         </optgroup>
-        <optgroup label="Provinces">
-          <option value="385">Province du Brabant wallon</option>
-          <option value="386">Province du Hainaut</option>
-          <option value="387">Province de Liège</option>
-          <option value="388">Province du Luxembourg</option>
-          <option value="389">Province de Namur</option>
+        <optgroup label="Province du Brabant wallon">
+          <option value="416">District de Nivelles</option>
+          <option value="417">District de Wavre</option>
+        </optgroup>
+        <optgroup label="Province du Hainaut">
+          <option value="406">District d'Ath</option>
+          <option value="407">District de Boussu</option>
+          <option value="408">District de Charleroi</option>
+          <option value="409">District de Châtelet</option>
+          <option value="410">District de Fontaine-L'Evêque</option>
+          <option value="411">District de La Louvière</option>
+          <option value="412">District de Mons</option>
+          <option value="413">District de Soignies</option>
+          <option value="414">District de Thuin</option>
+          <option value="415">District de Tournai</option>
+        </optgroup>
+        <optgroup label="Province de Liège">
+          <option value="396">District de Dison</option>
+          <option value="397">District d'Eupen</option>
+          <option value="398">District de Fléron</option>
+          <option value="399">District de Huy</option>
+          <option value="400">District de Liège</option>
+          <option value="401">District de Saint-Nicolas</option>
+          <option value="402">District de Seraing</option>
+          <option value="403">District de Verviers</option>
+          <option value="404">District de Visé</option>
+          <option value="405">District de Waremme</option>
+        </optgroup>
+        <optgroup label="Province du Luxembourg">
+          <option value="390">District d'Arlon</option>
+          <option value="391">District de Bastogne</option>
+          <option value="392">District de Bouillon</option>
+          <option value="393">District de Marche-en-Famenne</option>
+          <option value="394">District de Neufchâteau</option>
+          <option value="395">District de Virton</option>
+        </optgroup>
+        <optgroup label="Province de Namur">
+          <option value="418">District d'Andenne</option>
+          <option value="419">District de Ciney</option>
+          <option value="420">District de Dinant</option>
+          <option value="421">District de Gembloux</option>
+          <option value="422">District de Namur</option>
+          <option value="423">District de Philippeville</option>
         </optgroup>
       </select>
     </p>
@@ -693,7 +730,8 @@ function hideList() {
 }
 
 $('#town-id').bind('change', function() {
-  $(this).children().children(':selected').parent().attr('label') == 'Provinces' ? hideList() : showList();
+  var prov=/^Province/;
+  prov.test($(this).children().children(':selected').parent().attr('label')) ? hideList() : showList();
 });
 
 $('#party').prev('label').hide();
@@ -721,7 +759,7 @@ $('#chk-none').bind('click', function() {
 echo !empty($town_id) && intval($town_id) ? '$("#town-id option[value=' . $town_id . ']").attr("selected", "selected");' : '';
 echo !empty($party_id) && intval($party_id) ? '$("#party-id option[value=' . $party_id . ']").attr("selected", "selected");' : '';
 echo !empty($party) && $party_id == '1' ? 'showParty();' : '';
-echo in_array($town_id, array('385', '386', '387', '388', '389')) ? 'hideList();' : '';
+echo (intval($town_id) > 384) ? 'hideList();' : '';
 
 ?>
 </script>
